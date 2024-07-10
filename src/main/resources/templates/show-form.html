@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
-$END$
+
+<h2>Name: <span th:text="${myName}"></span></h2>
+<h2>Email: <span th:text="${myEmail}"></span></h2>
+<h2>Phone: <span th:text="${myPhone}"></span></h2>
+<h2>Phone: <span th:text="${myGender}"></span></h2>
+
 </body>
 </html>

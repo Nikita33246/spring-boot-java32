@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Home</title>
 </head>
 <body>
-$END$
+
+<h1>Home page</h1>
+
+Message:
+<p th:text="${my_msg}"></p>
+
+Name:
+<p th:text="${myName}"></p>
+
+
 </body>
 </html>
