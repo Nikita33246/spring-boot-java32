@@ -1,5 +1,7 @@
 package org.itstep.springbootjava32.controller;
 
+import org.apache.catalina.connector.Response;
+import org.apache.coyote.Request;
 import org.itstep.springbootjava32.model.Student;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,8 +18,8 @@ public class MyController {
 
     {
         studentList.add(new Student(1,"Jack", "jack@", "345345"));
-        studentList.add(new Student(2,"Jack1", "jack1@", "345345"));
-        studentList.add(new Student(3,"Jack2", "jack2@", "345345"));
+        studentList.add(new Student(2,"Max", "jack1@", "345345"));
+        studentList.add(new Student(3,"Bob", "jack2@", "345345"));
     }
 
 
@@ -57,8 +59,9 @@ public class MyController {
         model.addAttribute("myName", student.getName());
         model.addAttribute("myEmail", student.getEmail());
         model.addAttribute("myPhone", student.getPhone());
+        model.addAttribute("allStudents", studentList);
         studentList.add(student);
-        return "show-student";
+        return "all-students";
     }
 
     @GetMapping("/show-students")

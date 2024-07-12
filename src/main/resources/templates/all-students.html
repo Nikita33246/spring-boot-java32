@@ -13,7 +13,7 @@
     <span th:text="${student.name}"></span> <br>
     <span th:text="${student.email}"></span> <br>
     <span th:text="${student.phone}"></span> <br>
-    <a th:href="@{/v1/show-student/{id}(id=${student.id})}">Student</a><br>
+    <a th:href="@{/v1/show-student/{id}(id=${student.getId()})}">Student</a><br>
 </h2>
 
 <br>
