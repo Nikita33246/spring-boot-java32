@@ -1,4 +1,5 @@
 package org.itstep.springbootjava32.model;
+import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,18 +7,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
+
 import java.util.Set;
 
+@Entity
 @Component
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
-@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "students")
 public class Student {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_student", nullable = false)

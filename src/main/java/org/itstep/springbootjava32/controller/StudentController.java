@@ -27,7 +27,7 @@ public class StudentController {
 
     @GetMapping("/student")
     public String form(Model model) {
-        //model.addAttribute("student", new Student());
+        model.addAttribute("student", new Student());
         return "student";
     }
 
@@ -56,14 +56,8 @@ public class StudentController {
     @GetMapping("/show-student/{id}")
     public String showStudent(@PathVariable(value = "id") String id, Model model) {
         System.out.println("==============================");
-        Student student = new Student();
-        for (Student student1 : studentService.findAll()) {
-            if (student1.getId() == Integer.parseInt(id)) {
-                student = student1;
-                break;
-            }
-        }
-        //Student student = studentDAO.findById(Integer.parseInt(id));
+
+        Student student = studentService.findById(Integer.parseInt(id));
 
 
         System.out.println("========== Student: " + student.getName() + " =================");

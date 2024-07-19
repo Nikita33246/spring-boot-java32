@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form action="/v1/student" method="post" th:object="${myStudent}">
+<form action="/student" method="post" th:object="${student}">
     Name:<input type="text" name="name" th:field="*{name}"> <br>
     Email:<input type="text" name="email" th:field="*{email}"> <br>
     Phone:<input type="text" name="phone" th:field="*{phone}"> <br>

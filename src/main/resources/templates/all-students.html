@@ -8,21 +8,17 @@
 
 <h1>Show all students</h1>
 
-<h2 th:each="student : ${allStudents}">
-    <span>Student</span>
-    <span th:text="${student.name}"></span> <br>
-    <span th:text="${student.email}"></span> <br>
-    <span th:text="${student.phone}"></span> <br>
-    <a th:href="@{/v1/show-student/{id}(id=${student.getId()})}">Student</a><br>
-</h2>
-
-<br>
-
-<h2 th:each="student : ${allStudents}">
-    <span>Student</span>
-    <span th:text="${'Name:' + student.name + ' Email:' + student.email + ' Phone'+ student.phone}"></span>
-</h2>
-
+<table>
+    <tr th:each="student : ${students}">
+        <td>Student:</td>
+        <td th:text="${student.name}"></td>
+        <td th:text="${student.email}"></td>
+        <td th:text="${student.phone}"></td>
+        <td><a th:href="@{/show-student/{id}(id=${student.id})}">Info</a></td>
+        <td><a th:href="@{/student/update{id}(id=${student.id})}">Update</a></td>
+        <td><a th:href="@{/student/delete{id}(id=${student.id})}">Delete</a></td>
+    </tr>
+</table>
 
 </body>
 </html>

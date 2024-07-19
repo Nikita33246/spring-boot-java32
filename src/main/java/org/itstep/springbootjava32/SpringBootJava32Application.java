@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
 @SpringBootApplication
-@ComponentScan(basePackages = { "org.itstep.springbootjava32.model" })
-@EnableJpaRepositories("org.itstep.springbootjava32.repository")
+//@ComponentScan(basePackages = { "org.itstep.springbootjava32.model" })
+//@EnableJpaRepositories("org.itstep.springbootjava32.repository")
 public class SpringBootJava32Application {
 
     public static void main(String[] args) {
