@@ -1,7 +1,5 @@
 package org.itstep.springbootjava32.controller;
 
-import org.apache.catalina.connector.Response;
-import org.apache.coyote.Request;
 import org.itstep.springbootjava32.model.Student;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,12 +13,14 @@ import java.util.List;
 public class MyController {
 
     List<Student> studentList = new ArrayList<>();
+//
+//    {
+//        studentList.add(new Student(1,"Jack", "jack@", "345345"));
+//        studentList.add(new Student(2,"Max", "jack1@", "345345"));
+//        studentList.add(new Student(3,"Bob", "jack2@", "345345"));
+//    }
 
-    {
-        studentList.add(new Student(1,"Jack", "jack@", "345345"));
-        studentList.add(new Student(2,"Max", "jack1@", "345345"));
-        studentList.add(new Student(3,"Bob", "jack2@", "345345"));
-    }
+
 
 
 //    @GetMapping("/hello")
