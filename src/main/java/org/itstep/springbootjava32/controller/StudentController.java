@@ -45,8 +45,8 @@ public class StudentController {
 
         for (Student student : studentService.findAll()) {
             System.out.println("Name:" + student.getName());
-            if (student.getTeam() != null) {
-                System.out.println("\t\tGroup: " + student.getTeam().getName());
+            if (student.getGroup() != null) {
+                System.out.println("\t\tGroup: " + student.getGroup().getName());
             }
         }
         return "all-students";
@@ -61,9 +61,9 @@ public class StudentController {
 
 
         System.out.println("========== Student: " + student.getName() + " =================");
-        for (Teacher teacher : student.getTeachers()) {
-            System.out.println("+++++++++++++++ Teacher: " + teacher.getName()+" ++++++++++++++++");
-        }
+//        for (Teacher teacher : student.getTeachers()) {
+//            System.out.println("+++++++++++++++ Teacher: " + teacher.getName()+" ++++++++++++++++");
+//        }
 
         model.addAttribute("student", student);
 

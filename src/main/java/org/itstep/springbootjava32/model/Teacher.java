@@ -10,13 +10,11 @@ import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
-@Component
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "master")
 public class Teacher {
 
     @Id

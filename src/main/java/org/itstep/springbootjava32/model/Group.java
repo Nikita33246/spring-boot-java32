@@ -15,23 +15,20 @@ import java.util.Set;
 @Setter
 @Component
 @Entity
-@Table(name = "team")
-public class Team {
+@Table(name = "groupz")
+public class Group {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_group")
     private Integer id;
     private String name;
-    private String date;
+    private int year;
 
-    @OneToMany(mappedBy = "team", fetch = FetchType.EAGER)
+
+    @OneToMany(mappedBy = "group", fetch = FetchType.EAGER)
     Set<Student> students;
 
 
 
-    public Team(String name, String date) {
-        this.name = name;
-        this.date = date;
-    }
+
 }

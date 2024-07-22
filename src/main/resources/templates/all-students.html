@@ -12,8 +12,8 @@
     <tr th:each="student : ${students}">
         <td>Student:</td>
         <td th:text="${student.name}"></td>
-        <td th:text="${student.email}"></td>
-        <td th:text="${student.phone}"></td>
+        <td th:text="${student.surname}"></td>
+        <td th:text="${student.rating}"></td>
         <td><a th:href="@{/show-student/{id}(id=${student.id})}">Info</a></td>
         <td><a th:href="@{/student/update{id}(id=${student.id})}">Update</a></td>
         <td><a th:href="@{/student/delete{id}(id=${student.id})}">Delete</a></td>
