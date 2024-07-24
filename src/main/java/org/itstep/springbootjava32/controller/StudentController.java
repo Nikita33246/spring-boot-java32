@@ -3,7 +3,6 @@ package org.itstep.springbootjava32.controller;
 import org.itstep.springbootjava32.model.Department;
 import org.itstep.springbootjava32.model.Group;
 import org.itstep.springbootjava32.model.Student;
-import org.itstep.springbootjava32.model.Teacher;
 import org.itstep.springbootjava32.service.DepartmentService;
 import org.itstep.springbootjava32.service.GroupService;
 import org.itstep.springbootjava32.service.StudentService;
