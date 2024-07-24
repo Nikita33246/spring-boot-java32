@@ -1,7 +1,6 @@
 package org.itstep.springbootjava32.service;
 
 
-import lombok.Setter;
 import org.itstep.springbootjava32.model.Department;
 import org.itstep.springbootjava32.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
