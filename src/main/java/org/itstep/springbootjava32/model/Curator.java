@@ -24,10 +24,11 @@ public class Curator {
     private String Name;
     private String Surname;
 
-    @OneToMany(mappedBy = "curators")
-    @JoinColumn(name = "Curator_Id")
-
-    Set<Group> groups;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "groupscurators",
+            joinColumns = @JoinColumn(name = "Group_Id"),
+            inverseJoinColumns = @JoinColumn(name = "Curator_Id"))
+    private Set<Group> groups;
 
 
 }
