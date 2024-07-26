@@ -1,5 +1,6 @@
 package org.itstep.springbootjava32.model;
 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,29 +10,20 @@ import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
-@Component
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "groupz")
-public class Group {
+@Component
+@Table(name="faculties")
+public class Faculties {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
     private String name;
-    private int year;
 
-    @OneToMany(mappedBy = "group", fetch = FetchType.EAGER)
-    private Set<Student> students;
-
-    @ManyToOne
-    @JoinColumn(name = "Department_Id")
-    private Department department;
-
-
-
-
+    @OneToMany(mappedBy = "faculties")
+   Set<Department> departments;
 }

@@ -9,29 +9,28 @@ import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
-@NoArgsConstructor
-@AllArgsConstructor
+@Component
 @Getter
 @Setter
-@Component
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "groupz")
-public class Group {
+@Table(name = "departments")
+public class Department {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private int building;
+    private double financing;
     private String name;
-    private int year;
 
-    @OneToMany(mappedBy = "group", fetch = FetchType.EAGER)
-    private Set<Student> students;
+    @OneToMany(mappedBy = "department")
+    Set<Group> groups;
+
 
     @ManyToOne
-    @JoinColumn(name = "Department_Id")
-    private Department department;
-
-
-
+    @JoinColumn(name = "Faculties_Id")
+    private Faculties faculties;
 
 }

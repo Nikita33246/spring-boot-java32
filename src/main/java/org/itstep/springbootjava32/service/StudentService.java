@@ -36,5 +36,8 @@ public class StudentService {
         studentRepository.delete(student);
     }
 
+    public Student findStudentByName(String name) {
+        return studentRepository.findByName(name);
+    }
 
 }
