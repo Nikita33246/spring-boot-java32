@@ -30,7 +30,7 @@ public class Department {
 
 
     @ManyToOne
-    @JoinColumn(name = "Faculties_Id")
+    @JoinColumn(name = "Faculty_Id")
     private Faculties faculties;
 
 }
