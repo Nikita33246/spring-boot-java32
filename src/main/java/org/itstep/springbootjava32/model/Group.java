@@ -24,11 +24,17 @@ public class Group {
     private String name;
     private int year;
 
-
     @OneToMany(mappedBy = "group", fetch = FetchType.EAGER)
-    Set<Student> students;
+    private Set<Student> students;
 
+    @ManyToOne
+    @JoinColumn(name = "Department_Id")
+    private Department department;
 
-
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "groupscurators",
+            joinColumns = @JoinColumn(name = "Curator_Id"),
+            inverseJoinColumns = @JoinColumn(name = "Group_Id"))
+    private Set<Curator> curators;
 
 }
