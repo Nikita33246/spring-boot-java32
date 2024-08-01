@@ -22,6 +22,12 @@
     <input type="submit">
 </form>
 
+<p>Поиск факультету по имени студента</p>
+<form action="/student/faculties" method="post">
+    <input type="text" name="search"> <br>
+    <input type="submit">
+</form>
+
 <table>
     <tr th:each="student : ${students}">
         <td>Student:</td>
