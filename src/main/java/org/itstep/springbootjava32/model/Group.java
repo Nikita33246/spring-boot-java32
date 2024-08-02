@@ -31,7 +31,10 @@ public class Group {
     @JoinColumn(name = "Department_Id")
     private Department department;
 
-
-
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "groupscurators",
+            joinColumns = @JoinColumn(name = "Group_Id"),
+            inverseJoinColumns = @JoinColumn(name = "Curator_Id"))
+    private Set<Curator> curators;
 
 }

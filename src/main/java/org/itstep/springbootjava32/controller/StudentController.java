@@ -1,9 +1,11 @@
 package org.itstep.springbootjava32.controller;
 
 import org.itstep.springbootjava32.model.Department;
+import org.itstep.springbootjava32.model.Faculties;
 import org.itstep.springbootjava32.model.Group;
 import org.itstep.springbootjava32.model.Student;
 import org.itstep.springbootjava32.service.DepartmentService;
+import org.itstep.springbootjava32.service.FacultiesService;
 import org.itstep.springbootjava32.service.GroupService;
 import org.itstep.springbootjava32.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,23 +22,15 @@ public class StudentController {
     private StudentService studentService;
     private GroupService groupService;
     private DepartmentService departmentService;
-
-
-    @Autowired
-    public void setDepartmentService(DepartmentService departmentService) {
-        this.departmentService = departmentService;
-    }
+    private FacultiesService facultiesService;
 
     @Autowired
-    public void setGroupService(GroupService groupService) {
-        this.groupService = groupService;
-    }
-
-    @Autowired
-    public void setStudentService(StudentService studentService) {
+    public StudentController(StudentService studentService, GroupService groupService, DepartmentService departmentService, FacultiesService facultiesService) {
         this.studentService = studentService;
+        this.groupService = groupService;
+        this.departmentService = departmentService;
+        this.facultiesService = facultiesService;
     }
-
 
     @GetMapping("/student")
     public String form(Model model) {
@@ -139,5 +133,20 @@ public class StudentController {
 
         return "group";
     }
+
+
+    @PostMapping("/student/faculties")
+    public String faculties(@RequestParam(value = "search") String search, Model model) {
+        System.out.println("search:" + search);
+        Faculties facultiesByStudentName = facultiesService.findFacultiesByName(search);
+
+        System.out.println("facultiesByStudentName = " + facultiesByStudentName.getName());
+
+        model.addAttribute("search", search);
+        model.addAttribute("faculties", facultiesByStudentName);
+
+        return "group";
+    }
+
 
 }
