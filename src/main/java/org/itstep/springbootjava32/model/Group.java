@@ -40,7 +40,7 @@ public class Group {
     private Set<Student> students;
 
     @ManyToOne
-    @JoinColumn(name = "department_id")
+    @JoinColumn(name = "Department_Id")
     private Department department;
 
     @ManyToMany(mappedBy = "groups")
