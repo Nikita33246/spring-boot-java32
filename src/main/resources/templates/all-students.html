@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+<!--    <style>-->
+<!--        div{-->
+<!--            background-size: cover;-->
+<!--        }-->
+<!--    </style>-->
+
 </head>
 <body>
 
@@ -22,9 +29,22 @@
     <input type="submit">
 </form>
 
+<form action="/student/sorting" method="post">
+    <label> Sorting:
+        <select name="sorting" >
+            <option value="">-</option>
+            <option value="rating">by rating</option>
+            <option value="name">by name</option>
+        </select>
+    </label>
+    <input type="submit">
+</form>
+
 <table>
     <tr th:each="student : ${students}">
         <td>Student:</td>
+<!--        <td th:style="'background-image: url('+ @{/image/{idStudent}(idStudent=${student.getId()})} + '); background-size: cover;  width: 100px; height: 100px;'"></td>-->
+        <td> <img th:src="@{/image/{idStudent}(idStudent=${student.getId()})}" width="100px" alt="image"/></td>
         <td th:text="${student.name}"></td>
         <td th:text="${student.surname}"></td>
         <td th:text="${student.rating}"></td>

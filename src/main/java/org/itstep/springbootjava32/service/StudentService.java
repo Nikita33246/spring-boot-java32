@@ -40,4 +40,18 @@ public class StudentService {
         return studentRepository.findByName(name);
     }
 
+    public List<Student> sortingByValue(String value) {
+
+        if (value == null) {
+            return studentRepository.findAll();
+        } else if (value.equalsIgnoreCase("name")) {
+            return studentRepository.sortStudentByName();
+        } else if (value.equalsIgnoreCase("rating")) {
+            return studentRepository.sortStudentByRating();
+        } else {
+            studentRepository.findAll();
+        }
+
+        return studentRepository.findAll();
+    }
 }

@@ -2,15 +2,13 @@ package org.itstep.springbootjava32.model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
-
-
-import java.time.LocalDateTime;
-import java.util.Set;
 
 @Entity
 @Component
@@ -25,8 +23,10 @@ public class Student {
     @Column(name = "id", nullable = false)
     private Integer id;
     @Column(name = "name")
+    @NotEmpty(message = "Field name must be not empty")
     private String name;
     private int rating;
+    @NotEmpty(message = "Field surname must be not empty")
     private String surname;
 
 

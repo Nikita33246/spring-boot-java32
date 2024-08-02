@@ -1,16 +1,25 @@
 package org.itstep.springbootjava32.controller;
 
+import jakarta.validation.Valid;
 import org.itstep.springbootjava32.model.Department;
 import org.itstep.springbootjava32.model.Group;
+import org.itstep.springbootjava32.model.Image;
 import org.itstep.springbootjava32.model.Student;
 import org.itstep.springbootjava32.service.DepartmentService;
 import org.itstep.springbootjava32.service.GroupService;
+import org.itstep.springbootjava32.service.ImageUploadService;
 import org.itstep.springbootjava32.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.naming.Binding;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -20,7 +29,14 @@ public class StudentController {
     private StudentService studentService;
     private GroupService groupService;
     private DepartmentService departmentService;
+    private ImageUploadService imageUploadService;
+    private JavaMailSender mailSender;
 
+
+    @Autowired
+    public void setImageUploadService(ImageUploadService imageUploadService) {
+        this.imageUploadService = imageUploadService;
+    }
 
     @Autowired
     public void setDepartmentService(DepartmentService departmentService) {
@@ -46,9 +62,26 @@ public class StudentController {
 
 
     @PostMapping("/student")
-    public String form(@ModelAttribute Student student) {
+    public String form(@Valid @ModelAttribute Student student,
+                       BindingResult bindingResult,
+                       @RequestParam("file") MultipartFile file, Model model) throws IOException {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("student", student);
+            return "student";
+        }
+
         studentService.save(student);
 
+        String message = "Hello " + student.getName() + " from java !";
+
+
+
+        try {
+            imageUploadService.uploadImageToStudent(file, student);
+        } catch (IOException e) {
+
+        }
         return "redirect:/all-students";
     }
 
@@ -136,8 +169,32 @@ public class StudentController {
 
         System.out.println("Depatrment Name = " + depName);
 
-
         return "group";
+    }
+
+    @PostMapping("/student/sorting")
+    public String sorting(@RequestParam(value = "sorting") String value, Model model) {
+
+        System.out.println("value = " + value);
+
+        List<Student> students = studentService.sortingByValue(value);
+
+        System.out.println("students = " + students);
+
+        model.addAttribute("students", students);
+
+        return "all-students";
+    }
+
+    @GetMapping("/image/{idStudent}")
+    @ResponseBody
+    public ResponseEntity<byte[]>  getImage(@PathVariable(value = "idStudent") String idStudent) {
+        Image image = imageUploadService.getImageToStudent(studentService.findById(Integer.parseInt(idStudent)));
+        if (image == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok() // HTTP 200
+                .body(image.getContent());
     }
 
 }

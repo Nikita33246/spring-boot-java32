@@ -3,14 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <style>
+        .fielderr {
+            color: red;
+            font-size: small;
+        }
+    </style>
+
 </head>
 <body>
 
-<form action="/student" method="post" th:object="${student}">
+<form action="/student" method="post" th:object="${student}" enctype="multipart/form-data">
     <input type="text" name="id" th:field="*{id}" hidden="hidden"> <br>
+
+    <div class="fielderr" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
     Name:<input type="text" name="name" th:field="*{name}"> <br>
+
+    <div class="fielderr" th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}"></div>
     Rating:<input type="text" name="rating" th:field="*{rating}"> <br>
+
+    <div class="fielderr" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></div>
     Surname:<input type="text" name="surname" th:field="*{surname}"> <br>
+
+    Add image: <input type="file" name="file" accept="image/*">
     <input type="submit">
 </form>
 
