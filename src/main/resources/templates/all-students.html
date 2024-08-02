@@ -8,6 +8,20 @@
 
 <h1>Show all students</h1>
 
+<p>Поиск группі по имени студента</p>
+<form action="/student/group" method="post">
+    <input type="text" name="search"> <br>
+    <input type="submit">
+</form>
+
+<br>
+
+<p>Поиск департамента по имени студента</p>
+<form action="/student/department" method="post">
+    <input type="text" name="search"> <br>
+    <input type="submit">
+</form>
+
 <table>
     <tr th:each="student : ${students}">
         <td>Student:</td>

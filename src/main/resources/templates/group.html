@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1 th:if="${group!=null}">Group by student: <span th:text="${search}"></span></h1>
+<h2 th:if="${group!=null}" th:text="${group.name}"></h2>
+
+
+<h1 th:if="${department!=null}">Department by student: <span th:text="${search}"></span></h1>
+<h2 th:if="${department!=null}" th:text="${department.name}"></h2>
+
+
+</body>
+</html>
