@@ -1,6 +1,7 @@
 package org.itstep.springbootjava32.controller;
 
 import jakarta.validation.Valid;
+import org.itstep.springbootjava32.email.test.TestMailSender;
 import org.itstep.springbootjava32.model.Department;
 import org.itstep.springbootjava32.model.Group;
 import org.itstep.springbootjava32.model.Image;
@@ -11,6 +12,7 @@ import org.itstep.springbootjava32.service.ImageUploadService;
 import org.itstep.springbootjava32.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,8 +32,12 @@ public class StudentController {
     private GroupService groupService;
     private DepartmentService departmentService;
     private ImageUploadService imageUploadService;
-    private JavaMailSender mailSender;
+    private TestMailSender mailSender;
 
+    @Autowired
+    public void setMailSender(TestMailSender mailSender) {
+        this.mailSender = mailSender;
+    }
 
     @Autowired
     public void setImageUploadService(ImageUploadService imageUploadService) {
@@ -70,12 +76,8 @@ public class StudentController {
             model.addAttribute("student", student);
             return "student";
         }
-
         studentService.save(student);
-
-        String message = "Hello " + student.getName() + " from java !";
-
-
+        mailSender.sendTestMessage(student);
 
         try {
             imageUploadService.uploadImageToStudent(file, student);
@@ -188,7 +190,7 @@ public class StudentController {
 
     @GetMapping("/image/{idStudent}")
     @ResponseBody
-    public ResponseEntity<byte[]>  getImage(@PathVariable(value = "idStudent") String idStudent) {
+    public ResponseEntity<byte[]> getImage(@PathVariable(value = "idStudent") String idStudent) {
         Image image = imageUploadService.getImageToStudent(studentService.findById(Integer.parseInt(idStudent)));
         if (image == null) {
             return ResponseEntity.notFound().build();
