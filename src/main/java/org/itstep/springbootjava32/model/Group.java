@@ -1,5 +1,6 @@
 package org.itstep.springbootjava32.model;
 
+
 import java.util.Set;
 
 import org.springframework.stereotype.Component;
@@ -40,7 +41,7 @@ public class Group {
     private Set<Student> students;
 
     @ManyToOne
-    @JoinColumn(name = "department_id")
+    @JoinColumn(name = "Department_Id")
     private Department department;
 
     @ManyToMany(mappedBy = "groups")
