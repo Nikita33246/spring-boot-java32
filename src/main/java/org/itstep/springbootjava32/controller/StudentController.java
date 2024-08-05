@@ -3,10 +3,12 @@ package org.itstep.springbootjava32.controller;
 import jakarta.validation.Valid;
 import org.itstep.springbootjava32.email.test.TestMailSender;
 import org.itstep.springbootjava32.model.Department;
+import org.itstep.springbootjava32.model.Faculties;
 import org.itstep.springbootjava32.model.Group;
 import org.itstep.springbootjava32.model.Image;
 import org.itstep.springbootjava32.model.Student;
 import org.itstep.springbootjava32.service.DepartmentService;
+import org.itstep.springbootjava32.service.FacultiesService;
 import org.itstep.springbootjava32.service.GroupService;
 import org.itstep.springbootjava32.service.ImageUploadService;
 import org.itstep.springbootjava32.service.StudentService;
@@ -33,32 +35,34 @@ public class StudentController {
     private DepartmentService departmentService;
     private ImageUploadService imageUploadService;
     private TestMailSender mailSender;
+    private final FacultiesService facultiesService;
+
 
     @Autowired
     public void setMailSender(TestMailSender mailSender) {
         this.mailSender = mailSender;
     }
-
     @Autowired
     public void setImageUploadService(ImageUploadService imageUploadService) {
         this.imageUploadService = imageUploadService;
     }
 
-    @Autowired
-    public void setDepartmentService(DepartmentService departmentService) {
-        this.departmentService = departmentService;
+        @Autowired
+    public StudentController(FacultiesService facultiesService) {
+        this.facultiesService = facultiesService;
     }
 
-    @Autowired
-    public void setGroupService(GroupService groupService) {
-        this.groupService = groupService;
-    }
 
-    @Autowired
-    public void setStudentService(StudentService studentService) {
-        this.studentService = studentService;
-    }
 
+
+
+//    @Autowired
+//    public StudentController(StudentService studentService, GroupService groupService, DepartmentService departmentService, FacultiesService facultiesService) {
+//        this.studentService = studentService;
+//        this.groupService = groupService;
+//        this.departmentService = departmentService;
+//        this.facultiesService = facultiesService;
+//    }
 
     @GetMapping("/student")
     public String form(Model model) {
@@ -171,6 +175,7 @@ public class StudentController {
 
         System.out.println("Depatrment Name = " + depName);
 
+
         return "group";
     }
 
@@ -198,5 +203,20 @@ public class StudentController {
         return ResponseEntity.ok() // HTTP 200
                 .body(image.getContent());
     }
+
+
+    @PostMapping("/student/faculties")
+    public String faculties(@RequestParam(value = "search") String search, Model model) {
+        System.out.println("search:" + search);
+        Faculties facultiesByStudentName = facultiesService.findFacultiesByName(search);
+
+        System.out.println("facultiesByStudentName = " + facultiesByStudentName.getName());
+
+        model.addAttribute("search", search);
+        model.addAttribute("faculties", facultiesByStudentName);
+
+        return "group";
+    }
+
 
 }

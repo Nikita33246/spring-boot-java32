@@ -3,13 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-
-<!--    <style>-->
-<!--        div{-->
-<!--            background-size: cover;-->
-<!--        }-->
-<!--    </style>-->
-
 </head>
 <body>
 
@@ -33,14 +26,9 @@
     <input type="submit">
 </form>
 
-<form action="/student/sorting" method="post">
-    <label> Sorting:
-        <select name="sorting" >
-            <option value="">-</option>
-            <option value="rating">by rating</option>
-            <option value="name">by name</option>
-        </select>
-    </label>
+<p>Поиск факультету по имени студента</p>
+<form action="/student/faculties" method="post">
+    <input type="text" name="search"> <br>
     <input type="submit">
 </form>
 
