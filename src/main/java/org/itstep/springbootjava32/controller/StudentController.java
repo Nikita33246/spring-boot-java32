@@ -42,21 +42,33 @@ public class StudentController {
     public void setMailSender(TestMailSender mailSender) {
         this.mailSender = mailSender;
     }
+
     @Autowired
     public void setImageUploadService(ImageUploadService imageUploadService) {
         this.imageUploadService = imageUploadService;
     }
 
-        @Autowired
+    @Autowired
     public StudentController(FacultiesService facultiesService) {
         this.facultiesService = facultiesService;
     }
 
+    @Autowired
+    public void setStudentService(StudentService studentService) {
+        this.studentService = studentService;
+    }
 
+    @Autowired
+    public void setGroupService(GroupService groupService) {
+        this.groupService = groupService;
+    }
 
+    @Autowired
+    public void setDepartmentService(DepartmentService departmentService) {
+        this.departmentService = departmentService;
+    }
 
-
-//    @Autowired
+    //    @Autowired
 //    public StudentController(StudentService studentService, GroupService groupService, DepartmentService departmentService, FacultiesService facultiesService) {
 //        this.studentService = studentService;
 //        this.groupService = groupService;
@@ -83,10 +95,11 @@ public class StudentController {
         studentService.save(student);
         mailSender.sendTestMessage(student);
 
-        try {
-            imageUploadService.uploadImageToStudent(file, student);
-        } catch (IOException e) {
-
+        if (!file.isEmpty()) {
+            try {
+                imageUploadService.uploadImageToStudent(file, student);
+            } catch (IOException e) {
+            }
         }
         return "redirect:/all-students";
     }

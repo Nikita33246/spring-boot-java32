@@ -35,6 +35,7 @@
 <table>
     <tr th:each="student : ${students}">
         <td>Student:</td>
+        <td th:text="${student.id}"></td>
 <!--        <td th:style="'background-image: url('+ @{/image/{idStudent}(idStudent=${student.getId()})} + '); background-size: cover;  width: 100px; height: 100px;'"></td>-->
         <td> <img th:src="@{/image/{idStudent}(idStudent=${student.getId()})}" width="100px" alt="image"/></td>
         <td th:text="${student.name}"></td>

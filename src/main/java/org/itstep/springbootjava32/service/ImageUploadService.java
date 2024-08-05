@@ -26,7 +26,6 @@ public class ImageUploadService {
     }
 
 
-
     public void uploadImageToStudent(MultipartFile file, Student student) throws IOException {
 
         Image studentProfileImage = imageRepository.findByStudentId(student.getId());
@@ -44,7 +43,7 @@ public class ImageUploadService {
 
 
     public Image getImageToStudent(Student student) {
-        Image image = imageRepository.findById(student.getId()).get();
+        Image image = imageRepository.findByStudentId(student.getId());
         if (!ObjectUtils.isEmpty(image)) {
             image.setContent(decompressBytes(image.getContent()));
         }
