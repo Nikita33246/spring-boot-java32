@@ -33,8 +33,8 @@ public class Group {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "groupscurators",
-            joinColumns = @JoinColumn(name = "Curator_Id"),
-            inverseJoinColumns = @JoinColumn(name = "Group_Id"))
+            joinColumns = @JoinColumn(name = "Group_Id"),
+            inverseJoinColumns = @JoinColumn(name = "Curator_Id"))
     private Set<Curator> curators;
 
 }
