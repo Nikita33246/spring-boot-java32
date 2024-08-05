@@ -26,14 +26,14 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfiguration {
 
 
-    //private final UserDetailServiceImpl userDetailService;
+    private final UserDetailServiceImpl userDetailService;
 
     private MyAuthProvider myAuthProvider;
 
-    @Autowired
-    public void setMyAuthProvider(MyAuthProvider myAuthProvider) {
-        this.myAuthProvider = myAuthProvider;
+    public WebSecurityConfiguration(UserDetailServiceImpl userDetailService) {
+        this.userDetailService = userDetailService;
     }
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -54,22 +54,22 @@ public class WebSecurityConfiguration {
     }
 
 
-    @Bean
-    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-        AuthenticationManagerBuilder authenticationManagerBuilder =
-                http.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.authenticationProvider(myAuthProvider);
-        return authenticationManagerBuilder.build();
-    }
-
-
 //    @Bean
-//    public AuthenticationManager authenticationManager() {
-//        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-//        authenticationProvider.setUserDetailsService(userDetailService);
-//        authenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
-//        return new ProviderManager(authenticationProvider);
+//    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
+//        AuthenticationManagerBuilder authenticationManagerBuilder =
+//                http.getSharedObject(AuthenticationManagerBuilder.class);
+//        authenticationManagerBuilder.authenticationProvider(myAuthProvider);
+//        return authenticationManagerBuilder.build();
 //    }
+
+
+    @Bean
+    public AuthenticationManager authenticationManager() {
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setUserDetailsService(userDetailService);
+        authenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
+        return new ProviderManager(authenticationProvider);
+    }
 
 
     @Bean
