@@ -30,6 +30,7 @@ public class WebSecurityConfiguration {
 
     private MyAuthProvider myAuthProvider;
 
+    @Autowired
     public WebSecurityConfiguration(UserDetailServiceImpl userDetailService) {
         this.userDetailService = userDetailService;
     }

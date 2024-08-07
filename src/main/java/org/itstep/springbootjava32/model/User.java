@@ -32,6 +32,7 @@ public class User implements UserDetails, Serializable {
     private String username;
     private String password;
     private String email;
+    private boolean enabled;
 
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -40,6 +41,19 @@ public class User implements UserDetails, Serializable {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     Set<Role> roles;
 
+
+    @OneToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
+
+
+    public User(String username, String password, String email, Student student) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.student = student;
+        this.enabled = false;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

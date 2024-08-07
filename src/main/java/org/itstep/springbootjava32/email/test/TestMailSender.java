@@ -28,5 +28,4 @@ public  void sendTestMessage(Student student) {
     mailSender.send(email);
 }
 
-
 }

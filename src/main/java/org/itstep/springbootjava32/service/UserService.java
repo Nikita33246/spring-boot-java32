@@ -3,13 +3,14 @@ package org.itstep.springbootjava32.service;
 import org.itstep.springbootjava32.model.ERole;
 import org.itstep.springbootjava32.model.Role;
 import org.itstep.springbootjava32.model.User;
+import org.itstep.springbootjava32.model.VerificationToken;
 import org.itstep.springbootjava32.repository.RoleRepository;
 import org.itstep.springbootjava32.repository.UserRepository;
+import org.itstep.springbootjava32.repository.VerificationTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
@@ -23,6 +24,13 @@ public class UserService {
 
     private PasswordEncoder passwordEncoder;
 
+    private VerificationTokenRepository verificationTokenRepository;
+
+
+    @Autowired
+    public void setVerificationTokenRepository(VerificationTokenRepository verificationTokenRepository) {
+        this.verificationTokenRepository = verificationTokenRepository;
+    }
 
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
@@ -39,8 +47,7 @@ public class UserService {
         this.passwordEncoder = bCryptPasswordEncoder;
     }
 
-
-    public void saveUser(User user) {
+    public void saveStudentUser(User user) {
         if (user != null) {
             User savedUser = user;
             savedUser.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -48,5 +55,21 @@ public class UserService {
             savedUser.setRoles(new HashSet<>(List.of(role)));
             userRepository.save(savedUser);
         }
+    }
+
+    public void saveAdminUser(User user) {
+        if (user != null) {
+            User savedUser = user;
+            savedUser.setPassword(passwordEncoder.encode(user.getPassword()));
+            Role role = roleRepository.findRoleByRole(ERole.ROLE_ADMIN).get();
+            savedUser.setRoles(new HashSet<>(List.of(role)));
+            userRepository.save(savedUser);
+        }
+    }
+
+    public void createToken(String token, User user) {
+        VerificationToken verificationToken = new VerificationToken(user.getId(), token);
+        verificationTokenRepository.save(verificationToken);
+
     }
 }

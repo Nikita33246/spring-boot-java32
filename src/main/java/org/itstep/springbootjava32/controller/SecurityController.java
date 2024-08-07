@@ -1,10 +1,8 @@
 package org.itstep.springbootjava32.controller;
 
 import org.itstep.springbootjava32.model.User;
-import org.itstep.springbootjava32.repository.UserRepository;
 import org.itstep.springbootjava32.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,8 +35,8 @@ public class SecurityController {
 
     @PostMapping("/registration")
     public String registration(@ModelAttribute User user) {
-        userService.saveUser(user);
-        return "all-students";
+        userService.saveAdminUser(user);
+        return "redirect:/all-students";
     }
 
 
