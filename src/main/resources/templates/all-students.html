@@ -36,8 +36,8 @@
     <tr th:each="student : ${students}">
         <td>Student:</td>
         <td th:text="${student.id}"></td>
-<!--        <td th:style="'background-image: url('+ @{/image/{idStudent}(idStudent=${student.getId()})} + '); background-size: cover;  width: 100px; height: 100px;'"></td>-->
-        <td> <img th:src="@{/image/{idStudent}(idStudent=${student.getId()})}" width="100px" alt="image"/></td>
+        <!--        <td th:style="'background-image: url('+ @{/image/{idStudent}(idStudent=${student.getId()})} + '); background-size: cover;  width: 100px; height: 100px;'"></td>-->
+        <td><img th:src="@{/image/{idStudent}(idStudent=${student.getId()})}" width="100px" alt="image"/></td>
         <td th:text="${student.name}"></td>
         <td th:text="${student.surname}"></td>
         <td th:text="${student.rating}"></td>
@@ -46,6 +46,23 @@
         <td><a th:href="@{/student/delete{id}(id=${student.id})}">Delete</a></td>
     </tr>
 </table>
+
+
+    <div th:if="${studentPages.totalPages > 1}">
+        <ul>
+            <li th:if="${studentPages.number > 0}">
+                <a th:href="@{all-students(page=${studentPages.number})}">&lt; Previous</a>
+            </li>
+            <li th:each="pageNumber : ${#numbers.sequence(1, studentPages.totalPages)}"
+                th:class="${pageNumber == studentPages.number + 1 ? 'active' : ''}">
+                <a th:href="@{all-students(page=${pageNumber})}" th:text="${pageNumber}"></a>
+            </li>
+            <li th:if="${studentPages.number + 1 < studentPages.totalPages}">
+                <a th:href="@{all-students(page=${studentPages.number + 2})}">Next &gt;</a>
+            </li>
+        </ul>
+    </div>
+
 
 </body>
 </html>

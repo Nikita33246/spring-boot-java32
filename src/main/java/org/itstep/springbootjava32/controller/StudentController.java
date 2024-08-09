@@ -2,17 +2,12 @@ package org.itstep.springbootjava32.controller;
 
 import jakarta.validation.Valid;
 import org.itstep.springbootjava32.email.test.TestMailSender;
-import org.itstep.springbootjava32.model.Department;
-import org.itstep.springbootjava32.model.Faculties;
-import org.itstep.springbootjava32.model.Group;
-import org.itstep.springbootjava32.model.Image;
-import org.itstep.springbootjava32.model.Student;
-import org.itstep.springbootjava32.service.DepartmentService;
-import org.itstep.springbootjava32.service.FacultiesService;
-import org.itstep.springbootjava32.service.GroupService;
-import org.itstep.springbootjava32.service.ImageUploadService;
-import org.itstep.springbootjava32.service.StudentService;
+import org.itstep.springbootjava32.model.*;
+import org.itstep.springbootjava32.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -24,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.naming.Binding;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -36,6 +32,13 @@ public class StudentController {
     private ImageUploadService imageUploadService;
     private TestMailSender mailSender;
     private final FacultiesService facultiesService;
+
+    private UserService userService;
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
 
     @Autowired
@@ -76,6 +79,23 @@ public class StudentController {
 //        this.facultiesService = facultiesService;
 //    }
 
+    private static final int PAGE_SIZE = 10;
+
+    @GetMapping({"/", "/index"})
+    public String index(Principal principal, Model model) {
+
+        if (principal != null) {
+            User userByUsername = userService.getUserByUsername(principal.getName());
+
+            if (userByUsername != null) {
+                model.addAttribute("user", userByUsername);
+            }
+
+        }
+
+        return "index";
+    }
+
     @GetMapping("/student")
     public String form(Model model) {
         model.addAttribute("student", new Student());
@@ -105,8 +125,13 @@ public class StudentController {
     }
 
     @GetMapping("/all-students")
-    public String allStudents(Model model) {
-        model.addAttribute("students", studentService.findAll());
+    public String allStudents(@RequestParam(defaultValue = "1") int page, Model model) {
+        Pageable pageable = PageRequest.of(page - 1, PAGE_SIZE);
+        Page<Student> studentPages = studentService.findAllStudents(pageable);
+
+
+        model.addAttribute("students", studentPages.getContent());
+        model.addAttribute("studentPages", studentPages);
 
         for (Student student : studentService.findAll()) {
             System.out.println("Name:" + student.getName());
@@ -229,6 +254,25 @@ public class StudentController {
         model.addAttribute("faculties", facultiesByStudentName);
 
         return "group";
+    }
+
+
+    @GetMapping("/student/registerToken")
+    public String registerToken(@RequestParam("token") String token, Model model) {
+
+        System.out.println("token = " + token);
+
+        VerificationToken tokenByToken = userService.getVerificationTokenByToken(token);
+
+
+        if (tokenByToken == null) {
+            model.addAttribute("token", null);
+            return "admin/confirm-student-token";
+        } else {
+            model.addAttribute("token", tokenByToken);
+            return "admin/confirm-student-token";
+
+        }
     }
 
 

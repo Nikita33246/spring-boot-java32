@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm student token</title>
+</head>
+<body>
+
+
+<h1 th:if="${token != null}">
+    <span style="color: green">Token success</span> <br>
+    <a href="/">Main page</a>
+</h1>
+
+<h1 th:if="${token == null}">
+    <span style="color: red">Зверніться до адміністратора</span>
+</h1>
+
+
+</body>
+</html>

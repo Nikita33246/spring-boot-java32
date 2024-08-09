@@ -42,7 +42,8 @@ public class WebSecurityConfiguration {
 //                .csrf((csrf)->csrf.ignoringRequestMatchers("/no-csrf")
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/all-students", "/", "/registration", "/image/{idStudent}").permitAll()
+                        .requestMatchers("/all-students", "/","/index", "/registration", "/image/{idStudent}").permitAll()
+                        .requestMatchers("/student/registerToken").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form

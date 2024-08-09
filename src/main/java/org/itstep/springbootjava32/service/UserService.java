@@ -12,8 +12,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
+import java.util.function.Supplier;
 
 @Service
 public class UserService {
@@ -68,8 +70,17 @@ public class UserService {
     }
 
     public void createToken(String token, User user) {
-        VerificationToken verificationToken = new VerificationToken(user.getId(), token);
+        VerificationToken verificationToken = new VerificationToken(user.getId(), token, LocalDateTime.now());
         verificationTokenRepository.save(verificationToken);
 
+    }
+
+
+    public VerificationToken getVerificationTokenByToken(String token) {
+       return verificationTokenRepository.getVerificationTokenByToken(token);
+    }
+
+    public User getUserByUsername(String name) {
+        return userRepository.findByUsername(name).orElseThrow(() -> new RuntimeException("User not found"));
     }
 }

@@ -1,18 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <style>
+        ul {
+            margin: 0;
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        li {
+            padding: 5px;
+            display: inline-block;
+            border: 1px solid black;
+            border-radius: 5px;
+        }
+    </style>
 </head>
+
 <body>
 
 <h1>Hello boot application Java32</h1>
 
-<a href="/admin/invite/student">Invite student</a><br>
-<a href="/all-students">All students</a> <br>
-<a href="/student">Add student</a> <br>
-<a href="/registration">Registration</a><br>
-<a href="/login">Login</a><br>
 
+<ul th:if="${user!=null}">
+    <li th:each="role: ${user.getRoles()}">
+        <a th:if="${role.getRole().name().equals('ROLE_ADMIN')}" href="/admin/invite/student">Invite student</a>
+    </li>
+    <li th:each="role: ${user.getRoles()}">
+        <a th:if="${role.getRole().name().equals('ROLE_ADMIN')}" href="/student">Add student</a>
+    </li>
+    <li th:each="role: ${user.getRoles()}">
+        <a th:if="${role.getRole().name().equals('ROLE_ADMIN') or role.getRole().name().equals('ROLE_STUDENT') }"
+           href="/all-students">All students</a>
+    </li>
+</ul>
+<ul>
+    <li><a href="/registration">Registration</a></li>
+    <li><a href="/login">Login</a></li>
+</ul>
 </body>
 </html>

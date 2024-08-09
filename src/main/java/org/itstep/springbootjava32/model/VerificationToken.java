@@ -7,8 +7,10 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -23,11 +25,13 @@ public class VerificationToken {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String token;
-    private Date expiryDate;
+    @UpdateTimestamp
+    private LocalDateTime expiryDate;
     private Integer userId;
 
-    public VerificationToken(Integer id, String token) {
-        this.userId = id;
+    public VerificationToken(Integer id, String token, LocalDateTime expiryDate) {
+        this.id = id;
         this.token = token;
+        this.expiryDate = expiryDate;
     }
 }
