@@ -27,6 +27,8 @@
 
 <h1>Hello boot application Java32</h1>
 
+<h1 th:text="${user.username}"></h1>
+
 
 <ul th:if="${user!=null}">
     <li th:each="role: ${user.getRoles()}">

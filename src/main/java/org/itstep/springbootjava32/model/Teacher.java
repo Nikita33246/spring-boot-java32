@@ -15,6 +15,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity(name = "teachers")
 public class Teacher {
 
     @Id
@@ -23,8 +24,8 @@ public class Teacher {
     private Integer id;
     private String name;
 
-    @ManyToMany(mappedBy = "teachers", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Student> students;
+//    @ManyToMany(mappedBy = "teachers", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    private Set<Student> students;
 
 
 }

@@ -37,9 +37,9 @@ public class Lecture {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
-    @ManyToOne
-    @JoinColumn(name = "teacher_id")
-    private Teacher teacher;
+//    @ManyToOne
+//    @JoinColumn(name = "teacher_id")
+//    private Teacher teacher;
     
     @ManyToMany
     @JoinTable(

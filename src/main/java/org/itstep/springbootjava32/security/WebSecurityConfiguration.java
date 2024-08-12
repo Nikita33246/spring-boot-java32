@@ -44,6 +44,7 @@ public class WebSecurityConfiguration {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/all-students", "/","/index", "/registration", "/image/{idStudent}").permitAll()
                         .requestMatchers("/student/registerToken").permitAll()
+                        .requestMatchers("/v2/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
