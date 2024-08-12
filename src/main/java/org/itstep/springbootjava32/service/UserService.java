@@ -80,6 +80,9 @@ public class UserService {
        return verificationTokenRepository.getVerificationTokenByToken(token);
     }
 
+    public void metod() {
+    }
+
     public User getUserByUsername(String name) {
         return userRepository.findByUsername(name).orElseThrow(() -> new RuntimeException("User not found"));
     }
