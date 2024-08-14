@@ -20,24 +20,24 @@ public class SecurityController {
     }
 
 
-
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
-
-    @GetMapping("/registration")
-    public String registration(Model model) {
-        model.addAttribute("user", new User());
-        return "registration";
-    }
-
-
-    @PostMapping("/registration")
-    public String registration(@ModelAttribute User user) {
-        userService.saveAdminUser(user);
-        return "redirect:/all-students";
-    }
+//
+//    @GetMapping("/login")
+//    public String login() {
+//        return "login";
+//    }
+//
+//    @GetMapping("/registration")
+//    public String registration(Model model) {
+//        model.addAttribute("user", new User());
+//        return "registration";
+//    }
+//
+//
+//    @PostMapping("/registration")
+//    public String registration(@ModelAttribute User user) {
+//        userService.saveAdminUser(user);
+//        return "redirect:/all-students";
+//    }
 
 
 

@@ -7,6 +7,7 @@ import org.itstep.springbootjava32.model.VerificationToken;
 import org.itstep.springbootjava32.repository.RoleRepository;
 import org.itstep.springbootjava32.repository.UserRepository;
 import org.itstep.springbootjava32.repository.VerificationTokenRepository;
+import org.itstep.springbootjava32.security.jwt.requests.SignupRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -82,5 +83,21 @@ public class UserService {
 
     public User getUserByUsername(String name) {
         return userRepository.findByUsername(name).orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
+    public User getUserById(Integer userId) {
+        return userRepository.findById(userId).orElseThrow(()-> new RuntimeException("User not found"));
+    }
+
+    public User createUser(SignupRequest signupRequest) {
+        User user = new User();
+        user.setUsername(signupRequest.getUsername());
+        user.setEmail(signupRequest.getEmail());
+        user.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
+        Role userRole = roleRepository.findRoleByRole(ERole.ROLE_STUDENT)
+                .orElseThrow(() -> new RuntimeException("Role not found"));
+        //user.getRoles().add(userRole);
+        user.setRoles(new HashSet<>(List.of(userRole)));
+        return userRepository.save(user);
     }
 }

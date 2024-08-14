@@ -1,4 +1,4 @@
-package org.itstep.springbootjava32.restcontroller;
+package org.itstep.springbootjava32.controller.restcontroller;
 
 
 import jakarta.validation.Valid;

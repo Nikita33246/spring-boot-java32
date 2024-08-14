@@ -18,13 +18,15 @@ public class JwtTokenProvider {
 
         claimsMap.put("id",Long.toString(user.getId()));
         claimsMap.put("username", user.getUsername());
+        claimsMap.put("email", user.getEmail());
+        claimsMap.put("password", user.getPassword());
 
         return Jwts.builder()
                 .setSubject(Long.toString(user.getId()))
                 .addClaims(claimsMap)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000))
-                .signWith(SignatureAlgorithm.HS256, "SecretKeyGenJWT")
+                .signWith(SignatureAlgorithm.HS512, "SecretKeyGenJWT")
                 .compact();
     }
 
@@ -41,10 +43,9 @@ public class JwtTokenProvider {
         }
     }
 
-    public Long getUserIdByToken(String token) {
+    public Integer getUserIdByToken(String token) {
         Claims claims = Jwts.parser().setSigningKey("SecretKeyGenJWT")
                 .parseClaimsJws(token).getBody();
-        Long id = Long.parseLong(claims.get("id", String.class));
-        return id;
+        return Integer.parseInt(claims.get("id", String.class));
     }
 }
