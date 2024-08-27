@@ -20,6 +20,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.List;
+import jakarta.persistence.*;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -48,5 +51,11 @@ public class Lecture {
         inverseJoinColumns = @JoinColumn(name = "group_id")
     )
     private Set<Group> groups;
+
+    @Column(name = "lecture_name", nullable = false)
+    private String lectureName;
+
+    @OneToMany(mappedBy = "lecture", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Schedule> schedules;
 }
 
