@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lecture Room Management</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<div class="container">
+    <h1>Manage Lecture Rooms</h1>
+
+    <h2>Add or Update Lecture Room</h2>
+    <form th:action="@{/lecturerooms/add}" th:object="${lectureRoom}" method="post">
+        <label for="building">Building:</label>
+        <input type="text" id="building" th:field="*{building}" required><br>
+
+        <label for="name">Room Name:</label>
+        <input type="text" id="name" th:field="*{name}" required><br>
+
+        <input type="submit" value="Save Lecture Room">
+    </form>
+
+    <h2>Lecture Rooms</h2>
+    <ul>
+        <li th:each="room : ${lectureRooms}">
+            Building: [[${room.building}]], Room Name: [[${room.name}]]
+            <form th:action="@{/lecturerooms/delete/{id}(id=${room.id})}" method="post" style="display:inline;">
+                <input type="submit" value="Delete">
+            </form>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

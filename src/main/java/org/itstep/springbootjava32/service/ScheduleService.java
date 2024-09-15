@@ -52,5 +52,8 @@ public class ScheduleService {
     public void deleteSchedule(Long id) {
         scheduleRepository.deleteById(id);
     }
+
+    public void deleteScheduleById(Long id) {
+    }
 }
 
